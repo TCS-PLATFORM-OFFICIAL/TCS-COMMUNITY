@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "tcs-macro-pulse"
+version = "0.1.0"
+description = "Real-time macro signal pipeline (L1-L3) — open-source data fetchers by TCS-PLATFORM"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.11"
+keywords = ["macro", "finance", "fred", "gdacs", "acled", "vietnam", "investment"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Financial and Insurance Industry",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Office/Business :: Financial",
+]
+
+dependencies = [
+    "requests>=2.31",
+    "python-dateutil>=2.8",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7", "pytest-cov", "ruff"]
+nlp = ["transformers>=4.40", "torch>=2.0"]   # FinBERT mode
+
+[project.urls]
+Homepage    = "https://tcs-platform.com"
+Repository  = "https://github.com/TCS-PLATFORM-OFFICIAL/tcs-macro-pulse"
+"Bug Tracker" = "https://github.com/TCS-PLATFORM-OFFICIAL/tcs-macro-pulse/issues"
+"Get Pro Trial" = "https://tcs-platform.com/referral/github"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
