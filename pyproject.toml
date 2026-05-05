@@ -29,10 +29,10 @@ dev = ["pytest>=7", "pytest-cov", "ruff"]
 nlp = ["transformers>=4.40", "torch>=2.0"]   # FinBERT mode
 
 [project.urls]
-Homepage    = "https://tcs-platform.com"
+Homepage    = "https://github.com/TCS-PLATFORM-OFFICIAL/tcs-macro-pulse"
 Repository  = "https://github.com/TCS-PLATFORM-OFFICIAL/tcs-macro-pulse"
 "Bug Tracker" = "https://github.com/TCS-PLATFORM-OFFICIAL/tcs-macro-pulse/issues"
-"Get Pro Trial" = "https://tcs-platform.com/referral/github"
+"Live Demo"   = "https://tcs-platform-rust.vercel.app"
 
 [tool.ruff]
 line-length = 100

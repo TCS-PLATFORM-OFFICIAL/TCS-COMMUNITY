@@ -5,13 +5,13 @@
 
 [![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-blue)](https://python.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![⭐ Star for 30-day Pro Trial](https://img.shields.io/badge/%E2%AD%90_Star-Get_30d_Pro_Trial-gold)](https://tcs-platform.com/referral/github)
+[![⭐ Star this repo](https://img.shields.io/badge/%E2%AD%90_Star-for_Pro_Trial-gold)](https://github.com/TCS-PLATFORM-OFFICIAL/tcs-macro-pulse/issues/new?template=trial-request.md)
 
 ---
 
 ## What is this?
 
-`tcs-macro-pulse` is the **open-source L1-L3 macro data pipeline** powering [TCS-PLATFORM](https://tcs-platform.com) — a Vietnamese investment intelligence system.
+`tcs-macro-pulse` is the **open-source L1-L3 macro data pipeline** powering [TCS-PLATFORM](https://tcs-platform-rust.vercel.app) — a Vietnamese investment intelligence system.
 
 We open-source the data collection layer (L1-L3) so the community can:
 - Build their own macro dashboards
@@ -60,9 +60,9 @@ python examples/full_pipeline.py
 
 ## ⭐ Get 30-Day Pro Trial
 
-**Star this repo → Get 30 days TCS-PLATFORM Pro free** (worth $29)
+**Star this repo + open a [Trial Request issue](https://github.com/TCS-PLATFORM-OFFICIAL/tcs-macro-pulse/issues/new?title=Pro+Trial+Request&body=GitHub+username%3A+%0AEmail%3A+) → 30 days TCS-PLATFORM Pro free** (worth $29)
 
-[Claim your trial →](https://tcs-platform.com/referral/github?utm_source=oss&utm_medium=readme)
+Live demo: [tcs-platform-rust.vercel.app](https://tcs-platform-rust.vercel.app)
 
 Pro tier includes:
 - L4-L9 TCI scoring (our proprietary engine)
