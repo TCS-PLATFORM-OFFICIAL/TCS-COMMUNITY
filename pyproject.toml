@@ -1,4 +1,4 @@
-[build-system]
+﻿[build-system]
 requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
 
@@ -29,9 +29,9 @@ dev = ["pytest>=7", "pytest-cov", "ruff"]
 nlp = ["transformers>=4.40", "torch>=2.0"]   # FinBERT mode
 
 [project.urls]
-Homepage    = "https://github.com/TCS-PLATFORM-OFFICIAL/tcs-macro-pulse"
-Repository  = "https://github.com/TCS-PLATFORM-OFFICIAL/tcs-macro-pulse"
-"Bug Tracker" = "https://github.com/TCS-PLATFORM-OFFICIAL/tcs-macro-pulse/issues"
+Homepage    = "https://github.com/TCS-PLATFORM-OFFICIAL/TCS-COMMUNITY"
+Repository  = "https://github.com/TCS-PLATFORM-OFFICIAL/TCS-COMMUNITY"
+"Bug Tracker" = "https://github.com/TCS-PLATFORM-OFFICIAL/TCS-COMMUNITY/issues"
 "Live Demo"   = "https://tcs-platform-rust.vercel.app"
 
 [tool.setuptools.packages.find]

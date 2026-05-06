@@ -1,4 +1,4 @@
-# Security Policy
+﻿# Security Policy
 
 ## 🔒 Reporting a Vulnerability
 
@@ -7,7 +7,7 @@ If you discover a security vulnerability in `tcs-macro-pulse`, please report it
 
 ### How to report
 
-- **Preferred**: Open a [private security advisory](https://github.com/TCS-PLATFORM-OFFICIAL/tcs-macro-pulse/security/advisories/new) on GitHub.
+- **Preferred**: Open a [private security advisory](https://github.com/TCS-PLATFORM-OFFICIAL/TCS-COMMUNITY/security/advisories/new) on GitHub.
 - **Alternative**: Email `security@tcs-platform.com` (PGP key on request).
 
 Please include:

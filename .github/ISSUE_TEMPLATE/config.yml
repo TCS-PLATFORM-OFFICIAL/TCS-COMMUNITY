@@ -1,11 +1,11 @@
-blank_issues_enabled: false
+﻿blank_issues_enabled: false
 contact_links:
   - name: 💬 Community Discussions
-    url: https://github.com/TCS-PLATFORM-OFFICIAL/tcs-macro-pulse/discussions
+    url: https://github.com/TCS-PLATFORM-OFFICIAL/TCS-COMMUNITY/discussions
     about: Ask questions, share ideas, or discuss macro-data topics
   - name: 🌐 TCS-PLATFORM (Live Demo)
     url: https://tcs-platform-rust.vercel.app
     about: Try the full L1–L9 platform (Free tier available)
   - name: 🔒 Security Vulnerability
-    url: https://github.com/TCS-PLATFORM-OFFICIAL/tcs-macro-pulse/security/policy
+    url: https://github.com/TCS-PLATFORM-OFFICIAL/TCS-COMMUNITY/security/policy
     about: Report a security issue privately (do NOT open a public issue)

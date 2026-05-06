@@ -1,0 +1,221 @@
+name: Community Bot 🤖
+
+# Auto-management for TCS-COMMUNITY:
+#   - Auto-label new issues based on template / keywords
+#   - Auto-respond to Pro Trial requests
+#   - Welcome first-time contributors
+#   - Daily stats summary -> commits to docs/COMMUNITY_STATS.md
+#   - Flag sensitive issues (security/legal/IP) -> ping owner
+
+on:
+  issues:
+    types: [opened, edited, reopened]
+  pull_request_target:
+    types: [opened, reopened]
+  discussion:
+    types: [created]
+  schedule:
+    - cron: '0 1 * * *'  # daily 01:00 UTC = 08:00 ICT
+  workflow_dispatch:
+
+permissions:
+  issues: write
+  pull-requests: write
+  discussions: write
+  contents: write
+
+jobs:
+  triage:
+    if: github.event_name == 'issues'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Auto-label by content
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issue = context.payload.issue;
+            const title = (issue.title || '').toLowerCase();
+            const body = (issue.body || '').toLowerCase();
+            const text = title + ' ' + body;
+            const labels = new Set();
+
+            // Type detection
+            if (text.includes('[bug]') || text.includes('error') || text.includes('traceback')) labels.add('bug');
+            if (text.includes('[feature]') || text.includes('feature request')) labels.add('enhancement');
+            if (text.includes('pro trial') || title.includes('trial')) labels.add('pro-trial');
+            if (text.includes('docs') || text.includes('documentation') || text.includes('readme')) labels.add('documentation');
+            if (text.includes('install') || text.includes('setup')) labels.add('install-help');
+
+            // Source layer detection
+            if (text.includes('fred')) labels.add('source: FRED');
+            if (text.includes('gdacs')) labels.add('source: GDACS');
+            if (text.includes('acled')) labels.add('source: ACLED');
+            if (text.includes('reliefweb')) labels.add('source: ReliefWeb');
+
+            // SENSITIVE / OWNER ESCALATION
+            const sensitivePatterns = [
+              'l7', 'thai at', 'thái ất', 'thien co sach', 'thiên cơ sách',
+              'tci formula', 'license violation', 'dmca', 'cease and desist',
+              'lawsuit', 'gdpr', 'data breach', 'leak', 'exposed key', 'secret leak',
+              'press inquiry', 'journalist', 'reporter', 'media contact',
+              'acquisition', 'investor', 'partnership', 'm&a',
+              'reverse engineer', 'decompile', 'extract algorithm'
+            ];
+            if (sensitivePatterns.some(p => text.includes(p))) {
+              labels.add('🚨 needs-owner');
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                body: '🚨 **Owner escalation triggered.** This issue mentions sensitive topics (IP, legal, partnership, security). It has been flagged for personal review by the project owner. Expected response: within 48h.\n\n_Bot: TCS-COMMUNITY auto-triage_'
+              });
+            }
+
+            if (labels.size) {
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                labels: [...labels]
+              });
+            }
+
+      - name: Trial Request auto-response
+        if: contains(github.event.issue.title, 'Trial') || contains(github.event.issue.title, 'trial')
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issue = context.payload.issue;
+            // Check if user starred the repo
+            let hasStarred = false;
+            try {
+              await github.rest.activity.checkRepoIsStarredByAuthenticatedUser({
+                owner: context.repo.owner,
+                repo: context.repo.repo
+              });
+            } catch (e) { /* 404 = not starred */ }
+
+            const stargazers = await github.rest.activity.listStargazersForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              per_page: 100
+            });
+            hasStarred = stargazers.data.some(s => s.login === issue.user.login);
+
+            const body = hasStarred
+              ? `Hi @${issue.user.login} 👋\n\n🎉 Thanks for starring TCS-COMMUNITY! Your **30-day Pro Trial** request is being processed.\n\n**What happens next:**\n1. ⏰ Within 48h, you'll receive an activation code via email\n2. 🌐 Activate at https://tcs-platform-rust.vercel.app/redeem\n3. 💎 Enjoy Pro for 30 days (TCI scoring + AI Quân Sư + Risk alerts)\n\n**While you wait:**\n- 📖 Read [INSTALL_VI.md](https://github.com/TCS-PLATFORM-OFFICIAL/TCS-COMMUNITY/blob/main/docs/INSTALL_VI.md) (Vietnamese)\n- 💬 Join [Discussions](https://github.com/TCS-PLATFORM-OFFICIAL/TCS-COMMUNITY/discussions)\n- 🌐 Browse [/platform-map](https://tcs-platform-rust.vercel.app/platform-map) to see all features\n\n_Bot: TCS-COMMUNITY auto-responder_`
+              : `Hi @${issue.user.login} 👋\n\n🌟 **Almost there!** To claim your free Pro trial, please **[star this repository](https://github.com/TCS-PLATFORM-OFFICIAL/TCS-COMMUNITY)** first (top right corner).\n\nOnce you've starred, comment "starred" on this issue and the bot will re-check.\n\n_Bot: TCS-COMMUNITY auto-responder_`;
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue.number,
+              body
+            });
+
+  welcome:
+    if: github.event_name == 'pull_request_target' && github.event.action == 'opened'
+    runs-on: ubuntu-latest
+    steps:
+      - name: First-time contributor welcome
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            const { data: prs } = await github.rest.pulls.list({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'all',
+              creator: pr.user.login
+            });
+            if (prs.length === 1) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: pr.number,
+                body: `🎉 Welcome to TCS-COMMUNITY, @${pr.user.login}! Thanks for your first PR.\n\n**Reminders:**\n- ✅ Make sure you've read [CONTRIBUTING.md](../blob/main/CONTRIBUTING.md) — by submitting this PR you agree to the **inbound = MIT** contribution model and the **Contributor License Grant**.\n- ✅ Your code targets only **L1–L3** (data fetching). L4–L9 logic stays in the private TCS-PLATFORM repo.\n- ✅ CI checks must pass (lint + tests).\n\nA maintainer will review within 7 days.`
+              });
+            }
+
+  daily-stats:
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Generate stats
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const repo = await github.rest.repos.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo
+            });
+            const issues = await github.rest.issues.listForRepo({
+              owner: context.repo.owner, repo: context.repo.repo,
+              state: 'open', per_page: 100
+            });
+            const trialIssues = issues.data.filter(i =>
+              i.labels.some(l => (l.name || l) === 'pro-trial')
+            );
+            const sensitiveIssues = issues.data.filter(i =>
+              i.labels.some(l => (l.name || l) === '🚨 needs-owner')
+            );
+            const md = [
+              '# TCS-COMMUNITY Stats',
+              '',
+              `_Auto-generated: ${new Date().toISOString()}_`,
+              '',
+              '| Metric | Value |',
+              '|---|---|',
+              `| ⭐ Stars | ${repo.data.stargazers_count} |`,
+              `| 🍴 Forks | ${repo.data.forks_count} |`,
+              `| 👀 Watchers | ${repo.data.subscribers_count} |`,
+              `| 🐛 Open issues | ${repo.data.open_issues_count} |`,
+              `| 🎁 Pending trial requests | ${trialIssues.length} |`,
+              `| 🚨 Owner-escalation queue | ${sensitiveIssues.length} |`,
+              '',
+              '## Pending Pro Trial Requests',
+              '',
+              ...trialIssues.slice(0, 20).map(i => `- [#${i.number}](${i.html_url}) by @${i.user.login} — ${i.created_at.slice(0, 10)}`),
+              '',
+              '## 🚨 Owner Escalation Queue',
+              '',
+              ...sensitiveIssues.slice(0, 20).map(i => `- [#${i.number}](${i.html_url}) by @${i.user.login} — **${i.title}**`)
+            ].join('\n');
+            fs.mkdirSync('docs', { recursive: true });
+            fs.writeFileSync('docs/COMMUNITY_STATS.md', md);
+
+            // Also write JSON for backend dashboard consumption
+            const stats = {
+              generated_at: new Date().toISOString(),
+              stars: repo.data.stargazers_count,
+              forks: repo.data.forks_count,
+              watchers: repo.data.subscribers_count,
+              open_issues: repo.data.open_issues_count,
+              pending_trials: trialIssues.length,
+              owner_escalations: sensitiveIssues.length,
+              trials: trialIssues.slice(0, 50).map(i => ({
+                number: i.number, url: i.html_url, user: i.user.login,
+                title: i.title, created_at: i.created_at
+              })),
+              escalations: sensitiveIssues.slice(0, 50).map(i => ({
+                number: i.number, url: i.html_url, user: i.user.login,
+                title: i.title, created_at: i.created_at,
+                labels: i.labels.map(l => l.name || l)
+              }))
+            };
+            fs.writeFileSync('docs/community_stats.json', JSON.stringify(stats, null, 2));
+
+      - name: Commit stats
+        run: |
+          git config user.name "tcs-community-bot[bot]"
+          git config user.email "bot@tcs-platform.com"
+          git add docs/COMMUNITY_STATS.md docs/community_stats.json
+          if ! git diff --cached --quiet; then
+            git commit -m "chore(stats): daily community stats refresh [skip ci]"
+            git push
+          fi

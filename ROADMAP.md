@@ -1,4 +1,4 @@
-# Roadmap
+﻿# Roadmap
 
 > Public roadmap for the **L1–L3 open-source layer** of TCS-PLATFORM.
 > Items related to L4–L9 (TCI, Thái Ất, signals) are tracked in the private SaaS, not here.
@@ -46,5 +46,5 @@ Status legend: 🟢 Done · 🟡 In progress · 🔵 Planned · ⚪ Idea (commun
 ## How to influence this roadmap
 
 1. **Vote** on a 🔵 or ⚪ item — open a Discussion thread or thumbs-up an existing one
-2. **Propose new** items via [Feature Request issue](https://github.com/TCS-PLATFORM-OFFICIAL/tcs-macro-pulse/issues/new?template=feature_request.yml)
+2. **Propose new** items via [Feature Request issue](https://github.com/TCS-PLATFORM-OFFICIAL/TCS-COMMUNITY/issues/new?template=feature_request.yml)
 3. **Build** an item — open a PR; we'll prioritize merging community-built fetchers

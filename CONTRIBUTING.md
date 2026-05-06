@@ -1,6 +1,6 @@
-# Contributing to tcs-macro-pulse
+﻿# Contributing to TCS-COMMUNITY
 
-Thanks for your interest in improving the open-source data layer of TCS-PLATFORM! This document explains **what we accept**, **what we don't**, and the **legal terms** of contributing.
+Thanks for your interest in improving the open community + open-source data layer of TCS-PLATFORM! This document explains **what we accept**, **what we don't**, and the **legal terms** of contributing.
 
 ---
 
@@ -142,5 +142,5 @@ By participating, you agree to abide by the [Code of Conduct](CODE_OF_CONDUCT.md
 
 ## 8. Questions?
 
-- **Open a [Discussion](https://github.com/TCS-PLATFORM-OFFICIAL/tcs-macro-pulse/discussions)** for general questions.
+- **Open a [Discussion](https://github.com/TCS-PLATFORM-OFFICIAL/TCS-COMMUNITY/discussions)** for general questions.
 - **Email**: hello@tcs-platform.com (response within 3 business days).

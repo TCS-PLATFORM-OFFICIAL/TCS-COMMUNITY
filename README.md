@@ -1,11 +1,13 @@
-# tcs-macro-pulse 🌏
+﻿# TCS-COMMUNITY 🌏
 
-> **Real-time macro signal pipeline** — L1-L3 data fetchers for global markets.  
+> **The open community of TCS-PLATFORM** — L1–L3 real-time macro signal pipeline + Discussions + Pro Trial.
 > Built by [TCS-PLATFORM](https://github.com/TCS-PLATFORM-OFFICIAL) · MIT License
+>
+> _Repo renamed 07/05/2026: `tcs-macro-pulse` → `TCS-COMMUNITY`. The Python package on PyPI is still `tcs-macro-pulse` (no breaking change). Old GitHub links auto-redirect._
 
 [![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-blue)](https://python.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![⭐ Star this repo](https://img.shields.io/badge/%E2%AD%90_Star-for_Pro_Trial-gold)](https://github.com/TCS-PLATFORM-OFFICIAL/tcs-macro-pulse/issues/new?template=trial-request.md)
+[![⭐ Star this repo](https://img.shields.io/badge/%E2%AD%90_Star-for_Pro_Trial-gold)](https://github.com/TCS-PLATFORM-OFFICIAL/TCS-COMMUNITY/issues/new?template=trial-request.md)
 
 ---
 
@@ -42,7 +44,7 @@ We open-source the data collection layer (L1-L3) so the community can:
 pip install tcs-macro-pulse
 
 # Or from source
-git clone https://github.com/TCS-PLATFORM-OFFICIAL/tcs-macro-pulse
+git clone https://github.com/TCS-PLATFORM-OFFICIAL/TCS-COMMUNITY
 cd tcs-macro-pulse
 pip install -e .
 
@@ -60,7 +62,7 @@ python examples/full_pipeline.py
 
 ## ⭐ Get 30-Day Pro Trial
 
-**Star this repo + open a [Trial Request issue](https://github.com/TCS-PLATFORM-OFFICIAL/tcs-macro-pulse/issues/new?title=Pro+Trial+Request&body=GitHub+username%3A+%0AEmail%3A+) → 30 days TCS-PLATFORM Pro free** (worth $29)
+**Star this repo + open a [Trial Request issue](https://github.com/TCS-PLATFORM-OFFICIAL/TCS-COMMUNITY/issues/new?title=Pro+Trial+Request&body=GitHub+username%3A+%0AEmail%3A+) → 30 days TCS-PLATFORM Pro free** (worth $29)
 
 Live demo: [tcs-platform-rust.vercel.app](https://tcs-platform-rust.vercel.app)
 

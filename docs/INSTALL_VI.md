@@ -1,6 +1,8 @@
-# Hướng dẫn cài đặt — tcs-macro-pulse
+﻿# Hướng dẫn cài đặt — TCS-COMMUNITY (gói pip: `tcs-macro-pulse`)
 
 > Tài liệu tiếng Việt cho người dùng VN. English version: see [`README.md`](../README.md).
+>
+> _Repo đổi tên 07/05/2026: `tcs-macro-pulse` → `TCS-COMMUNITY`. Tên gói pip vẫn là `tcs-macro-pulse` để không phá vỡ user đã cài._
 
 ## 1. Yêu cầu hệ thống
 
@@ -20,7 +22,7 @@ pip install tcs-macro-pulse
 ### Cách B — từ source
 
 ```bash
-git clone https://github.com/TCS-PLATFORM-OFFICIAL/tcs-macro-pulse.git
+git clone https://github.com/TCS-PLATFORM-OFFICIAL/TCS-COMMUNITY.git
 cd tcs-macro-pulse
 pip install -e .
 ```
@@ -93,6 +95,6 @@ ACLED_PASSWORD=your_password
 ## 6. Bước kế tiếp
 
 - 📖 Đọc [`README.md`](../README.md) để xem ví dụ Python API.
-- 💬 Tham gia [Discussions](https://github.com/TCS-PLATFORM-OFFICIAL/tcs-macro-pulse/discussions) hỏi đáp.
-- 🎁 Star repo + mở [Trial Request issue](https://github.com/TCS-PLATFORM-OFFICIAL/tcs-macro-pulse/issues/new?template=trial-request.md) để nhận **30 ngày Pro** miễn phí.
+- 💬 Tham gia [Discussions](https://github.com/TCS-PLATFORM-OFFICIAL/TCS-COMMUNITY/discussions) hỏi đáp.
+- 🎁 Star repo + mở [Trial Request issue](https://github.com/TCS-PLATFORM-OFFICIAL/TCS-COMMUNITY/issues/new?template=trial-request.md) để nhận **30 ngày Pro** miễn phí.
 - 🌐 Trải nghiệm full TCS-PLATFORM tại https://tcs-platform-rust.vercel.app
