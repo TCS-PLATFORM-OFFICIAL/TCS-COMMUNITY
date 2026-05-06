@@ -1,0 +1,59 @@
+name: 🐛 Bug Report
+description: Report a bug in a fetcher, parser, or example
+title: "[BUG] "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug! Please fill out the sections below.
+  - type: input
+    id: version
+    attributes:
+      label: Package version
+      description: Output of `pip show tcs-macro-pulse | grep Version`
+      placeholder: "0.1.0"
+    validations:
+      required: true
+  - type: dropdown
+    id: component
+    attributes:
+      label: Affected component
+      options:
+        - FRED fetcher
+        - GDACS fetcher
+        - ACLED fetcher
+        - ReliefWeb fetcher
+        - Keyword sentiment
+        - Example pipeline
+        - Documentation
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Run `python -m tcs_macro_pulse.fetchers.fred ...`
+        2. See error ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Error logs / traceback
+      render: shell
+  - type: input
+    id: environment
+    attributes:
+      label: OS / Python version
+      placeholder: "Windows 11 / Python 3.11.5"
+    validations:
+      required: true

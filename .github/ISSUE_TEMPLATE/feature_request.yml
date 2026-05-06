@@ -1,0 +1,48 @@
+name: 💡 Feature Request
+description: Suggest a new fetcher, data source, or improvement
+title: "[FEATURE] "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        We welcome ideas for **new L1–L3 data sources**. Note: features touching L4–L9 (TCI scoring, Thái Ất, signals) belong to the private TCS-PLATFORM SaaS, not this repo.
+  - type: dropdown
+    id: scope
+    attributes:
+      label: Scope
+      options:
+        - New L1 macro fetcher (e.g., IMF, Eurostat, GSO Vietnam)
+        - New L2 news/event source
+        - New L3 sentiment source
+        - Improvement to existing fetcher
+        - New example / tutorial
+        - Other (please describe)
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem does this solve?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: Be specific about API/data source, license terms, rate limits.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Confirmation
+      options:
+        - label: The data source has a free or open license suitable for redistribution.
+          required: true
+        - label: I've checked that this isn't already covered by an existing fetcher.
+          required: true
