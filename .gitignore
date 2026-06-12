@@ -24,4 +24,5 @@ htmlcov/
 # Output
 *.json
 !examples/*.json
+!track-record/data/*.json
 *.log
