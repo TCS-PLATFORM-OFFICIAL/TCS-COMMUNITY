@@ -67,6 +67,48 @@
     #loading { text-align: center; padding: 3rem; color: var(--muted); }
     #error   { text-align: center; padding: 3rem; color: var(--red); }
     .hidden  { display: none !important; }
+
+    /* Countdown */
+    .countdown-bar { background: linear-gradient(135deg, rgba(88,166,255,.08), rgba(63,185,80,.08));
+      border: 1px solid rgba(88,166,255,.3); border-radius: 8px; padding: 1.2rem 1.5rem;
+      margin-bottom: 2rem; display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
+    .countdown-bar .cd-label { font-size: .85rem; color: var(--muted); white-space: nowrap; }
+    .countdown-units { display: flex; gap: .8rem; }
+    .cd-unit { text-align: center; }
+    .cd-unit .cd-num { font-size: 1.8rem; font-weight: 700; color: var(--blue); font-family: monospace; }
+    .cd-unit .cd-lbl { font-size: .65rem; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
+    .cd-sep { font-size: 1.6rem; color: var(--muted); align-self: flex-start; padding-top: .1rem; }
+
+    /* Teaser box — nội dung niêm phong */
+    .teaser-box { background: rgba(248,81,73,.05); border: 1px solid rgba(248,81,73,.25);
+      border-radius: 8px; padding: 1.1rem 1.4rem; margin-top: 1.5rem; font-size: .85rem; }
+    .teaser-box .teaser-title { font-weight: 600; color: var(--accent); margin-bottom: .4rem; font-size: .9rem; }
+    .teaser-box .assets { display: flex; gap: .6rem; flex-wrap: wrap; margin-top: .5rem; }
+    .asset-chip { background: rgba(255,255,255,.06); border: 1px solid var(--border);
+      border-radius: 20px; padding: .25em .75em; font-size: .8rem; font-weight: 500; }
+
+    /* Verify steps cải tiến */
+    .verify-steps { list-style: none; counter-reset: step; margin-top: .8rem; }
+    .verify-steps li { counter-increment: step; padding: .35rem 0 .35rem 2rem; position: relative; font-size: .82rem; border-bottom: 1px solid rgba(255,255,255,.04); }
+    .verify-steps li:last-child { border-bottom: none; }
+    .verify-steps li::before { content: counter(step); position: absolute; left: 0;
+      width: 1.3rem; height: 1.3rem; background: rgba(88,166,255,.15); color: var(--blue);
+      border-radius: 50%; font-size: .7rem; font-weight: 700; display: flex;
+      align-items: center; justify-content: center; top: .45rem; }
+
+    /* Waitlist section */
+    .waitlist-section { margin-top: 3rem; background: linear-gradient(135deg, rgba(63,185,80,.06), rgba(88,166,255,.06));
+      border: 1px solid rgba(63,185,80,.25); border-radius: 12px; padding: 2rem; text-align: center; }
+    .waitlist-section h2 { font-size: 1.2rem; margin-bottom: .5rem; }
+    .waitlist-section p { color: var(--muted); font-size: .9rem; margin-bottom: 1.2rem; max-width: 520px; margin-left: auto; margin-right: auto; }
+    .waitlist-section .benefits { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .benefit-chip { background: rgba(255,255,255,.05); border: 1px solid var(--border);
+      border-radius: 6px; padding: .5rem 1rem; font-size: .82rem; }
+    .btn-waitlist { display: inline-block; background: var(--green); color: #000;
+      font-weight: 700; padding: .75rem 2rem; border-radius: 8px; text-decoration: none;
+      font-size: .95rem; transition: opacity .15s; }
+    .btn-waitlist:hover { opacity: .85; }
+    .waitlist-note { margin-top: .8rem; font-size: .75rem; color: var(--muted); }
   </style>
 </head>
 <body>
@@ -90,11 +132,18 @@
     <div class="method-box">
       <strong>Phương pháp:</strong> <span id="methodology-text"></span>
       <div class="verify-box">
-        <strong>Tự verify:</strong><br/>
-        1. Tải file <code>*_sealed.json</code> từ
-           <a href="https://github.com/TCS-PLATFORM-OFFICIAL/TCS-COMMUNITY/tree/main/track-record" target="_blank" style="color:var(--blue)">GitHub repo</a><br/>
-        2. Chạy: <code>python scripts/verify_forecast.py --check-hash YYYY-MM-DD</code><br/>
-        3. SHA-256 phải khớp với giá trị hiển thị trong cột "SHA-256 prefix" bên dưới.
+        <strong>🔍 Tự xác minh — 3 bước đơn giản:</strong>
+        <ol class="verify-steps">
+          <li>Vào ngày 12/07/2026, tải file <code>2026-06-12_sealed.json</code> từ
+            <a href="https://github.com/TCS-PLATFORM-OFFICIAL/TCS-COMMUNITY/tree/main/track-record" target="_blank" style="color:var(--blue)">GitHub repo này</a>.</li>
+          <li>Truy cập trang kiểm tra SHA-256 miễn phí:
+            <a href="https://emn178.github.io/online-tools/sha256_checksum.html" target="_blank" style="color:var(--blue)">emn178.github.io/sha256</a> — thả file vào, nhận mã hash.</li>
+          <li>So sánh mã hash vừa tính với mã niêm phong hiển thị trong bảng bên dưới.
+            Nếu khớp từng ký tự → <strong style="color:var(--green)">file nguyên vẹn, không ai sửa được</strong>.</li>
+        </ol>
+        <p style="margin-top:.7rem;font-size:.78rem;color:var(--muted)">
+          Lưu ý: Chúng tôi dùng thuật toán SHA-256 — cùng công nghệ bảo mật mà các ngân hàng lớn sử dụng để đảm bảo tính toàn vẹn dữ liệu.
+        </p>
       </div>
     </div>
 
@@ -120,6 +169,21 @@
       </div>
     </section>
 
+    <!-- Countdown bar -->
+    <div class="countdown-bar" id="countdown-bar">
+      <div class="cd-label">⏳ Kỳ đầu tiên được xác minh sau:</div>
+      <div class="countdown-units">
+        <div class="cd-unit"><div class="cd-num" id="cd-days">--</div><div class="cd-lbl">Ngày</div></div>
+        <div class="cd-sep">:</div>
+        <div class="cd-unit"><div class="cd-num" id="cd-hours">--</div><div class="cd-lbl">Giờ</div></div>
+        <div class="cd-sep">:</div>
+        <div class="cd-unit"><div class="cd-num" id="cd-mins">--</div><div class="cd-lbl">Phút</div></div>
+        <div class="cd-sep">:</div>
+        <div class="cd-unit"><div class="cd-num" id="cd-secs">--</div><div class="cd-lbl">Giây</div></div>
+      </div>
+      <div style="font-size:.8rem;color:var(--muted);margin-left:auto">Hạn verify: <strong style="color:var(--blue)">12/07/2026</strong></div>
+    </div>
+
     <!-- Pending table -->
     <section class="pending-section">
       <h2>⏳ Đang chờ verify (<span id="pending-count">0</span> kỳ)</h2>
@@ -138,7 +202,51 @@
       <div id="no-pending" class="hidden" style="color:var(--muted);padding:1rem 0;font-size:.85rem;">
         Không có kỳ đang chờ.
       </div>
+
+      <!-- Teaser: nội dung bên trong gói niêm phong -->
+      <div class="teaser-box" id="teaser-box">
+        <div class="teaser-title">🔐 Bên trong tệp dữ liệu đang bị niêm phong:</div>
+        <p style="color:var(--muted);font-size:.83rem;margin:.3rem 0">
+          Kịch bản xu hướng <strong style="color:var(--text)">30 ngày tới</strong> của 10 tài sản toàn cầu,
+          được chiết xuất trực tiếp từ lõi thuật toán 43 năm chu kỳ của TCS-Platform — bao gồm:
+        </p>
+        <div class="assets">
+          <span class="asset-chip">🥇 Vàng (Gold)</span>
+          <span class="asset-chip">₿ Bitcoin</span>
+          <span class="asset-chip">📈 S&amp;P 500</span>
+          <span class="asset-chip">💡 NASDAQ</span>
+          <span class="asset-chip">🍎 Apple · NVIDIA · Google · Tesla</span>
+          <span class="asset-chip">⛽ Khí tự nhiên</span>
+          <span class="asset-chip">🔷 BNB</span>
+        </div>
+        <p style="color:var(--muted);font-size:.78rem;margin-top:.6rem">
+          Kết quả sẽ được công bố tự động vào <strong style="color:var(--yellow)">12/07/2026</strong>. Dù đúng hay sai, bảng trên sẽ ghi lại tất cả.
+        </p>
+      </div>
     </section>
+
+    <!-- Waitlist / Early Access -->
+    <div class="waitlist-section">
+      <h2>🚀 Nhận thông báo sớm khi TCS-Platform ra mắt</h2>
+      <p>
+        Để lại Email để nhận file giải mã vào ngày <strong>12/07/2026</strong>
+        và được ưu đãi <strong>30% Early Access</strong> khi nền tảng ra mắt chính thức.
+      </p>
+      <div class="benefits">
+        <div class="benefit-chip">📊 Bản tin thị trường hàng ngày</div>
+        <div class="benefit-chip">🎯 Tín hiệu độ chính xác đo được</div>
+        <div class="benefit-chip">🛡️ Cảnh báo rủi ro sớm</div>
+        <div class="benefit-chip">🔔 Ưu đãi 30% Early Access</div>
+      </div>
+      <a class="btn-waitlist"
+         href="https://forms.gle/PLACEHOLDER_REPLACE_ME"
+         target="_blank"
+         rel="noopener">✉️ Đăng ký nhận thông báo — Miễn phí</a>
+      <p class="waitlist-note">
+        Không spam. Chỉ thông báo khi có kết quả xác minh hoặc khi nền tảng sắp ra mắt.
+      </p>
+    </div>
+
   </div><!-- #content -->
 </div><!-- .container -->
 
@@ -252,6 +360,32 @@
   }
 
   loadData();
+
+  // Countdown đến ngày verify đầu tiên: 2026-07-12 08:00 ICT (UTC+7)
+  function startCountdown() {
+    const target = new Date('2026-07-12T01:00:00Z'); // 08:00 ICT = 01:00 UTC
+    function tick() {
+      const now = new Date();
+      const diff = target - now;
+      if (diff <= 0) {
+        document.getElementById('countdown-bar').innerHTML =
+          '<div style="color:var(--green);font-weight:700;font-size:1.1rem">✅ Đã đến hạn xác minh! Kết quả đang được tính toán...</div>';
+        return;
+      }
+      const days  = Math.floor(diff / 86400000);
+      const hours = Math.floor((diff % 86400000) / 3600000);
+      const mins  = Math.floor((diff % 3600000) / 60000);
+      const secs  = Math.floor((diff % 60000) / 1000);
+      const pad = n => String(n).padStart(2, '0');
+      document.getElementById('cd-days').textContent  = pad(days);
+      document.getElementById('cd-hours').textContent = pad(hours);
+      document.getElementById('cd-mins').textContent  = pad(mins);
+      document.getElementById('cd-secs').textContent  = pad(secs);
+    }
+    tick();
+    setInterval(tick, 1000);
+  }
+  startCountdown();
 </script>
 </body>
 </html>
