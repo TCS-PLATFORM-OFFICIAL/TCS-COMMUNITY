@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TCS Track Record — Hồ Sơ Minh Chứng Công Khai</title>
+  <style>
+    :root {
+      --bg: #0d1117; --surface: #161b22; --border: #30363d;
+      --text: #e6edf3; --muted: #7d8590; --green: #3fb950;
+      --red: #f85149; --yellow: #d29922; --blue: #58a6ff;
+      --accent: #f78166;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; line-height: 1.6; }
+    .container { max-width: 960px; margin: 0 auto; padding: 2rem 1rem; }
+
+    /* Header */
+    header { border-bottom: 1px solid var(--border); padding-bottom: 1.5rem; margin-bottom: 2rem; }
+    header h1 { font-size: 1.6rem; font-weight: 700; }
+    header .subtitle { color: var(--muted); margin-top: 0.3rem; font-size: 0.9rem; }
+    .badge { display: inline-block; padding: 0.2em 0.6em; border-radius: 4px; font-size: 0.75rem; font-weight: 600; }
+    .badge-green  { background: rgba(63,185,80,.15); color: var(--green); border: 1px solid rgba(63,185,80,.4); }
+    .badge-yellow { background: rgba(210,153,34,.15); color: var(--yellow); border: 1px solid rgba(210,153,34,.4); }
+    .badge-red    { background: rgba(248,81,73,.15);  color: var(--red);   border: 1px solid rgba(248,81,73,.4); }
+    .badge-blue   { background: rgba(88,166,255,.15); color: var(--blue);  border: 1px solid rgba(88,166,255,.4); }
+
+    /* Stats banner */
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+    .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 1.2rem; }
+    .stat-card .label { font-size: 0.78rem; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
+    .stat-card .value { font-size: 2rem; font-weight: 700; margin-top: 0.2rem; }
+    .stat-card .sub   { font-size: 0.8rem; color: var(--muted); margin-top: 0.2rem; }
+    .value-green { color: var(--green); }
+    .value-yellow { color: var(--yellow); }
+    .value-muted { color: var(--muted); }
+
+    /* Methodology box */
+    .method-box { background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+                  padding: 1.2rem; margin-bottom: 2rem; font-size: 0.85rem; color: var(--muted); }
+    .method-box strong { color: var(--text); }
+
+    /* Table */
+    section h2 { font-size: 1.1rem; margin-bottom: 1rem; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    th { text-align: left; padding: 0.6rem 0.8rem; border-bottom: 1px solid var(--border);
+         color: var(--muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: .05em; }
+    td { padding: 0.6rem 0.8rem; border-bottom: 1px solid var(--border); }
+    tr:hover td { background: rgba(255,255,255,.03); }
+    .mono { font-family: "SFMono-Regular", Consolas, monospace; font-size: 0.8rem; }
+
+    /* Pending section */
+    .pending-section { margin-top: 2.5rem; }
+    .pending-section td { color: var(--muted); }
+
+    /* Footer */
+    footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--border);
+             font-size: 0.78rem; color: var(--muted); }
+    footer a { color: var(--blue); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    /* Verify instructions */
+    .verify-box { background: #0d1117; border: 1px solid var(--border); border-radius: 6px;
+                  padding: 1rem; margin-top: 1rem; font-size: 0.82rem; }
+    .verify-box code { font-family: monospace; color: var(--green); }
+
+    #loading { text-align: center; padding: 3rem; color: var(--muted); }
+    #error   { text-align: center; padding: 3rem; color: var(--red); }
+    .hidden  { display: none !important; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>TCS Track Record <span class="badge badge-blue">Forward Testing</span></h1>
+    <div class="subtitle">
+      Hồ sơ minh chứng công khai — Dự báo được niêm phong bằng SHA-256 TRƯỚC khi biết kết quả.<br/>
+      Bất kỳ ai cũng có thể tự xác minh không có chỉnh sửa hậu kỳ.
+    </div>
+  </header>
+
+  <div id="loading">⏳ Đang tải dữ liệu...</div>
+  <div id="error" class="hidden">❌ Không tải được dữ liệu. Vui lòng thử lại sau.</div>
+
+  <div id="content" class="hidden">
+    <!-- Stats -->
+    <div class="stats-grid" id="stats-grid"></div>
+
+    <!-- Methodology -->
+    <div class="method-box">
+      <strong>Phương pháp:</strong> <span id="methodology-text"></span>
+      <div class="verify-box">
+        <strong>Tự verify:</strong><br/>
+        1. Tải file <code>*_sealed.json</code> từ
+           <a href="https://github.com/TCS-PLATFORM-OFFICIAL/TCS-COMMUNITY/tree/main/track-record" target="_blank" style="color:var(--blue)">GitHub repo</a><br/>
+        2. Chạy: <code>python scripts/verify_forecast.py --check-hash YYYY-MM-DD</code><br/>
+        3. SHA-256 phải khớp với giá trị hiển thị trong cột "SHA-256 prefix" bên dưới.
+      </div>
+    </div>
+
+    <!-- Verified table -->
+    <section>
+      <h2>✅ Đã xác minh (<span id="verified-count">0</span> kỳ)</h2>
+      <table id="verified-table">
+        <thead>
+          <tr>
+            <th>Ngày seal</th>
+            <th>Verify sau</th>
+            <th>Regime</th>
+            <th>Đúng / Tính</th>
+            <th>Hit-Rate</th>
+            <th>Hash OK</th>
+            <th>SHA-256 (16 ký tự)</th>
+          </tr>
+        </thead>
+        <tbody id="verified-tbody"></tbody>
+      </table>
+      <div id="no-verified" class="hidden" style="color:var(--muted);padding:1rem 0;font-size:.85rem;">
+        Chưa có kỳ nào được xác minh. Kỳ đầu tiên sẽ available sau 30 ngày kể từ ngày bắt đầu.
+      </div>
+    </section>
+
+    <!-- Pending table -->
+    <section class="pending-section">
+      <h2>⏳ Đang chờ verify (<span id="pending-count">0</span> kỳ)</h2>
+      <table id="pending-table">
+        <thead>
+          <tr>
+            <th>Ngày seal</th>
+            <th>Verify vào</th>
+            <th>Regime</th>
+            <th>Số tín hiệu</th>
+            <th>SHA-256 (16 ký tự)</th>
+          </tr>
+        </thead>
+        <tbody id="pending-tbody"></tbody>
+      </table>
+      <div id="no-pending" class="hidden" style="color:var(--muted);padding:1rem 0;font-size:.85rem;">
+        Không có kỳ đang chờ.
+      </div>
+    </section>
+  </div><!-- #content -->
+</div><!-- .container -->
+
+<footer>
+  <div class="container">
+    <p>
+      Dữ liệu cập nhật tự động hàng ngày bởi <strong>TCS-PLATFORM Engine v2.1</strong> ·
+      Repo: <a href="https://github.com/TCS-PLATFORM-OFFICIAL/TCS-COMMUNITY" target="_blank">TCS-COMMUNITY</a> ·
+      Thời gian tạo: <span id="generated-at">—</span>
+    </p>
+    <p style="margin-top:.5rem;">
+      ⚠️ Track Record này chỉ phục vụ mục đích minh bạch và giáo dục.
+      Không phải lời khuyên đầu tư. Kết quả quá khứ không đảm bảo tương lai.
+    </p>
+  </div>
+</footer>
+
+<script>
+  // Đọc data từ index.json (cùng thư mục với file HTML này)
+  const DATA_URL = "data/index.json";
+
+  function hitRateBadge(pct) {
+    if (pct === null || pct === undefined) return '<span class="badge badge-yellow">N/A</span>';
+    if (pct >= 60) return `<span class="badge badge-green">${pct}%</span>`;
+    if (pct >= 50) return `<span class="badge badge-yellow">${pct}%</span>`;
+    return `<span class="badge badge-red">${pct}%</span>`;
+  }
+
+  function regimeBadge(regime) {
+    if (!regime) return "—";
+    const cls = ["CRISIS","BEAR","CRASH"].includes(regime) ? "badge-red"
+              : ["BULL","STRONG"].includes(regime) ? "badge-green" : "badge-yellow";
+    return `<span class="badge ${cls}">${regime}</span>`;
+  }
+
+  async function loadData() {
+    try {
+      const resp = await fetch(DATA_URL + "?t=" + Date.now());
+      if (!resp.ok) throw new Error(resp.status);
+      const data = await resp.json();
+      render(data);
+    } catch(e) {
+      document.getElementById("loading").classList.add("hidden");
+      document.getElementById("error").classList.remove("hidden");
+    }
+  }
+
+  function render(data) {
+    document.getElementById("loading").classList.add("hidden");
+    document.getElementById("content").classList.remove("hidden");
+
+    // Generated at
+    const genAt = data.generated_at ? new Date(data.generated_at).toLocaleString("vi-VN") : "—";
+    document.getElementById("generated-at").textContent = genAt;
+
+    // Methodology
+    document.getElementById("methodology-text").textContent = data.methodology || "";
+
+    // Stats
+    const c = data.cumulative || {};
+    const statsHtml = [
+      { label:"Hit-Rate Tích Lũy", value: c.hit_rate_pct != null ? c.hit_rate_pct + "%" : "—",
+        sub: `${c.total_correct||0} đúng / ${c.total_counted||0} tính`,
+        cls: c.hit_rate_pct >= 60 ? "value-green" : c.hit_rate_pct >= 50 ? "value-yellow" : "value-muted" },
+      { label:"Kỳ Đã Xác Minh", value: c.verified_periods || 0, sub:"kỳ 30 ngày", cls:"value-muted" },
+      { label:"Kỳ Đang Chờ", value: c.pending_periods || 0, sub:"chưa đến hạn", cls:"value-muted" },
+      { label:"Horizon", value: "30d", sub:"ngày mỗi kỳ", cls:"value-muted" },
+    ].map(s => `
+      <div class="stat-card">
+        <div class="label">${s.label}</div>
+        <div class="value ${s.cls}">${s.value}</div>
+        <div class="sub">${s.sub}</div>
+      </div>`).join("");
+    document.getElementById("stats-grid").innerHTML = statsHtml;
+
+    // Verified rows
+    const verified = data.verified || [];
+    document.getElementById("verified-count").textContent = verified.length;
+    if (verified.length === 0) {
+      document.getElementById("no-verified").classList.remove("hidden");
+    } else {
+      const rows = [...verified].reverse().map(r => `
+        <tr>
+          <td class="mono">${r.seal_date}</td>
+          <td class="mono">${r.verify_date}</td>
+          <td>${regimeBadge(r.regime_at_seal)}</td>
+          <td>${r.stats.correct}/${(r.stats.correct||0)+(r.stats.wrong||0)}</td>
+          <td>${hitRateBadge(r.stats.hit_rate_pct)}</td>
+          <td>${r.hash_ok ? '✅' : '🔴'}</td>
+          <td class="mono" style="color:var(--muted);font-size:.75rem">${r.sha256_prefix||"—"}…</td>
+        </tr>`).join("");
+      document.getElementById("verified-tbody").innerHTML = rows;
+    }
+
+    // Pending rows
+    const pending = data.pending || [];
+    document.getElementById("pending-count").textContent = pending.length;
+    if (pending.length === 0) {
+      document.getElementById("no-pending").classList.remove("hidden");
+    } else {
+      const rows = [...pending].reverse().map(r => `
+        <tr>
+          <td class="mono">${r.seal_date}</td>
+          <td class="mono">${r.verify_date}</td>
+          <td>${regimeBadge(r.regime_at_seal)}</td>
+          <td>${r.signals_count||"—"} tín hiệu</td>
+          <td class="mono" style="color:var(--muted);font-size:.75rem">${r.sha256_prefix||"—"}…</td>
+        </tr>`).join("");
+      document.getElementById("pending-tbody").innerHTML = rows;
+    }
+  }
+
+  loadData();
+</script>
+</body>
+</html>
