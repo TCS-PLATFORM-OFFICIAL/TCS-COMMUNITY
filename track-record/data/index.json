@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-09T03:10:36.362075Z",
+  "generated_at": "2026-07-09T09:24:18.967307Z",
   "schema_version": "1.0",
   "methodology": "Forward testing: engine signals sealed daily with SHA-256. Verified after 30 days against actual market prices (yfinance). Only global assets (US equities, commodities, crypto) counted. BULLISH correct = price rose; BEARISH correct = price flat/fell.",
   "cumulative": {
