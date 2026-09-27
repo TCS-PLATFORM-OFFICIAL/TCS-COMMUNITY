@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-09-25T08:33:15.696687Z",
+  "generated_at": "2026-09-27T15:17:11.999214Z",
   "schema_version": "1.0",
   "methodology": "Forward testing: engine signals sealed daily with SHA-256. Verified after 30 days against actual market prices (yfinance). Only global assets (US equities, commodities, crypto) counted. BULLISH correct = price rose; BEARISH correct = price flat/fell.",
   "cumulative": {
-    "verified_periods": 49,
-    "pending_periods": 24,
+    "verified_periods": 51,
+    "pending_periods": 23,
     "total_correct": 15,
-    "total_counted": 26,
-    "hit_rate_pct": 57.7
+    "total_counted": 27,
+    "hit_rate_pct": 55.6
   },
   "verified": [
     {
@@ -695,25 +695,37 @@
         "hit_rate_pct": 0.0
       },
       "status": "VERIFIED"
-    }
-  ],
-  "pending": [
+    },
     {
       "seal_date": "2026-08-27",
       "verify_date": "2026-09-26",
       "regime_at_seal": "NEUTRAL",
+      "hash_ok": true,
       "sha256_prefix": "0d02fcb53a4d4086",
-      "signals_count": 16,
-      "status": "PENDING"
+      "stats": {
+        "correct": 0,
+        "wrong": 1,
+        "skipped": 15,
+        "hit_rate_pct": 0.0
+      },
+      "status": "VERIFIED"
     },
     {
       "seal_date": "2026-08-28",
       "verify_date": "2026-09-27",
       "regime_at_seal": "BULL",
+      "hash_ok": true,
       "sha256_prefix": "e3ae4e93a80e8225",
-      "signals_count": 16,
-      "status": "PENDING"
-    },
+      "stats": {
+        "correct": 0,
+        "wrong": 0,
+        "skipped": 16,
+        "hit_rate_pct": null
+      },
+      "status": "VERIFIED"
+    }
+  ],
+  "pending": [
     {
       "seal_date": "2026-08-29",
       "verify_date": "2026-09-28",
@@ -887,6 +899,14 @@
       "verify_date": "2026-10-25",
       "regime_at_seal": "NEUTRAL",
       "sha256_prefix": "2cf718f2ac410cc2",
+      "signals_count": 17,
+      "status": "PENDING"
+    },
+    {
+      "seal_date": "2026-09-27",
+      "verify_date": "2026-10-27",
+      "regime_at_seal": "NEUTRAL",
+      "sha256_prefix": "1a62f59cf20b9844",
       "signals_count": 17,
       "status": "PENDING"
     }
