@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-10-09T08:37:18.374446Z",
+  "generated_at": "2026-10-11T15:18:10.375911Z",
   "schema_version": "1.0",
   "methodology": "Forward testing: engine signals sealed daily with SHA-256. Verified after 30 days against actual market prices (yfinance). Only global assets (US equities, commodities, crypto) counted. BULLISH correct = price rose; BEARISH correct = price flat/fell.",
   "cumulative": {
-    "verified_periods": 60,
-    "pending_periods": 25,
+    "verified_periods": 62,
+    "pending_periods": 24,
     "total_correct": 15,
-    "total_counted": 35,
-    "hit_rate_pct": 42.9
+    "total_counted": 36,
+    "hit_rate_pct": 41.7
   },
   "verified": [
     {
@@ -849,25 +849,37 @@
         "hit_rate_pct": 0.0
       },
       "status": "VERIFIED"
-    }
-  ],
-  "pending": [
+    },
     {
       "seal_date": "2026-09-10",
       "verify_date": "2026-10-10",
       "regime_at_seal": "NEUTRAL",
+      "hash_ok": true,
       "sha256_prefix": "7725494ba202109e",
-      "signals_count": 17,
-      "status": "PENDING"
+      "stats": {
+        "correct": 0,
+        "wrong": 0,
+        "skipped": 17,
+        "hit_rate_pct": null
+      },
+      "status": "VERIFIED"
     },
     {
       "seal_date": "2026-09-11",
       "verify_date": "2026-10-11",
       "regime_at_seal": "NEUTRAL",
+      "hash_ok": true,
       "sha256_prefix": "e08895e293af3b55",
-      "signals_count": 17,
-      "status": "PENDING"
-    },
+      "stats": {
+        "correct": 0,
+        "wrong": 1,
+        "skipped": 16,
+        "hit_rate_pct": 0.0
+      },
+      "status": "VERIFIED"
+    }
+  ],
+  "pending": [
     {
       "seal_date": "2026-09-13",
       "verify_date": "2026-10-13",
@@ -1049,6 +1061,14 @@
       "verify_date": "2026-11-08",
       "regime_at_seal": "NEUTRAL",
       "sha256_prefix": "10869280b9e6daba",
+      "signals_count": 14,
+      "status": "PENDING"
+    },
+    {
+      "seal_date": "2026-10-11",
+      "verify_date": "2026-11-10",
+      "regime_at_seal": "NEUTRAL",
+      "sha256_prefix": "8e57464af2c1706e",
       "signals_count": 14,
       "status": "PENDING"
     }
