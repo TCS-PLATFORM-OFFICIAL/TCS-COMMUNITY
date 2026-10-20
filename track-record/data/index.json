@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-10-19T08:39:19.445211Z",
+  "generated_at": "2026-10-20T02:18:00.683957Z",
   "schema_version": "1.0",
   "methodology": "Forward testing: engine signals sealed daily with SHA-256. Verified after 30 days against actual market prices (yfinance). Only global assets (US equities, commodities, crypto) counted. BULLISH correct = price rose; BEARISH correct = price flat/fell.",
   "cumulative": {
-    "verified_periods": 67,
+    "verified_periods": 68,
     "pending_periods": 26,
-    "total_correct": 16,
-    "total_counted": 41,
-    "hit_rate_pct": 39.0
+    "total_correct": 17,
+    "total_counted": 42,
+    "hit_rate_pct": 40.5
   },
   "verified": [
     {
@@ -947,17 +947,23 @@
         "hit_rate_pct": 100.0
       },
       "status": "VERIFIED"
-    }
-  ],
-  "pending": [
+    },
     {
       "seal_date": "2026-09-20",
       "verify_date": "2026-10-20",
       "regime_at_seal": "BULL",
+      "hash_ok": true,
       "sha256_prefix": "5bdf58d7e2efa6a6",
-      "signals_count": 18,
-      "status": "PENDING"
-    },
+      "stats": {
+        "correct": 1,
+        "wrong": 0,
+        "skipped": 17,
+        "hit_rate_pct": 100.0
+      },
+      "status": "VERIFIED"
+    }
+  ],
+  "pending": [
     {
       "seal_date": "2026-09-21",
       "verify_date": "2026-10-21",
@@ -1155,6 +1161,14 @@
       "verify_date": "2026-11-18",
       "regime_at_seal": "NEUTRAL",
       "sha256_prefix": "9c8a807deb38fc1a",
+      "signals_count": 12,
+      "status": "PENDING"
+    },
+    {
+      "seal_date": "2026-10-20",
+      "verify_date": "2026-11-19",
+      "regime_at_seal": "NEUTRAL",
+      "sha256_prefix": "c21be8a3b21036f9",
       "signals_count": 12,
       "status": "PENDING"
     }
