@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-10-23T08:32:44.919111Z",
+  "generated_at": "2026-10-25T15:16:15.072596Z",
   "schema_version": "1.0",
   "methodology": "Forward testing: engine signals sealed daily with SHA-256. Verified after 30 days against actual market prices (yfinance). Only global assets (US equities, commodities, crypto) counted. BULLISH correct = price rose; BEARISH correct = price flat/fell.",
   "cumulative": {
-    "verified_periods": 71,
-    "pending_periods": 26,
-    "total_correct": 22,
-    "total_counted": 47,
-    "hit_rate_pct": 46.8
+    "verified_periods": 73,
+    "pending_periods": 25,
+    "total_correct": 26,
+    "total_counted": 51,
+    "hit_rate_pct": 51.0
   },
   "verified": [
     {
@@ -1003,25 +1003,37 @@
         "hit_rate_pct": 100.0
       },
       "status": "VERIFIED"
-    }
-  ],
-  "pending": [
+    },
     {
       "seal_date": "2026-09-24",
       "verify_date": "2026-10-24",
       "regime_at_seal": "NEUTRAL",
+      "hash_ok": true,
       "sha256_prefix": "51ccc96644177ec4",
-      "signals_count": 18,
-      "status": "PENDING"
+      "stats": {
+        "correct": 1,
+        "wrong": 0,
+        "skipped": 17,
+        "hit_rate_pct": 100.0
+      },
+      "status": "VERIFIED"
     },
     {
       "seal_date": "2026-09-25",
       "verify_date": "2026-10-25",
       "regime_at_seal": "NEUTRAL",
+      "hash_ok": true,
       "sha256_prefix": "2cf718f2ac410cc2",
-      "signals_count": 17,
-      "status": "PENDING"
-    },
+      "stats": {
+        "correct": 3,
+        "wrong": 0,
+        "skipped": 14,
+        "hit_rate_pct": 100.0
+      },
+      "status": "VERIFIED"
+    }
+  ],
+  "pending": [
     {
       "seal_date": "2026-09-27",
       "verify_date": "2026-10-27",
@@ -1211,6 +1223,14 @@
       "verify_date": "2026-11-22",
       "regime_at_seal": "NEUTRAL",
       "sha256_prefix": "7c00f62d89749d7d",
+      "signals_count": 10,
+      "status": "PENDING"
+    },
+    {
+      "seal_date": "2026-10-25",
+      "verify_date": "2026-11-24",
+      "regime_at_seal": "NEUTRAL",
+      "sha256_prefix": "5061941b2a2b198c",
       "signals_count": 10,
       "status": "PENDING"
     }
