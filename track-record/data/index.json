@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-11-15T15:10:23.576184Z",
+  "generated_at": "2026-11-16T02:13:42.900584Z",
   "schema_version": "1.0",
   "methodology": "Forward testing: engine signals sealed daily with SHA-256. Verified after 30 days against actual market prices (yfinance). Only global assets (US equities, commodities, crypto) counted. BULLISH correct = price rose; BEARISH correct = price flat/fell.",
   "cumulative": {
     "verified_periods": 91,
-    "pending_periods": 25,
+    "pending_periods": 26,
     "total_correct": 52,
     "total_counted": 78,
     "hit_rate_pct": 66.7
@@ -1483,6 +1483,14 @@
       "verify_date": "2026-12-15",
       "regime_at_seal": "NEUTRAL",
       "sha256_prefix": "a195bf2cf0e2d08b",
+      "signals_count": 3,
+      "status": "PENDING"
+    },
+    {
+      "seal_date": "2026-11-16",
+      "verify_date": "2026-12-16",
+      "regime_at_seal": "NEUTRAL",
+      "sha256_prefix": "1cdc0a4753a030ad",
       "signals_count": 3,
       "status": "PENDING"
     }
